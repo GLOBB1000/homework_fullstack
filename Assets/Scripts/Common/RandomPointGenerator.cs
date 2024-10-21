@@ -1,12 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public static class RandomPointGenerator
+public class RandomPointGenerator: MonoBehaviour
 {
-    public static Transform RandomPoint(Transform[] points)
+    public static RandomPointGenerator Instance;
+
+    [SerializeField]
+    private Transform[] _spawnPositions;
+
+    [SerializeField]
+    private Transform[] _attackPositions;
+
+    private void Awake()
     {
-        int index = Random.Range(0, points.Length);
-        return points[index];
+        if (Instance == null)
+            Instance = this;
+    }
+
+    public Transform RandomAttackPoint()
+    {
+        int index = Random.Range(0, _attackPositions.Length);
+        return _attackPositions[index];
+    }
+
+    public Transform RandomSpawnPoint()
+    {
+        int index = Random.Range(0, _spawnPositions.Length);
+        return _spawnPositions[index];
     }
 }

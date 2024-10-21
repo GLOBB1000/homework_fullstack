@@ -1,8 +1,6 @@
 using ShootEmUp;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using UnityEngine;
 
 public class EnemyPool
@@ -38,7 +36,7 @@ public class EnemyPool
 
     }
 
-    public void GetEnemy(Transform _parent, Transform[] _spawnPositions, Transform[] _attackPositions, Player _character, Action<Enemy> CallBack)
+    public void GetEnemy(Transform _parent, Player _character, Action<Enemy> CallBack)
     {
         if (!_enemyPool.TryDequeue(out Enemy enemy))
         {
@@ -47,12 +45,12 @@ public class EnemyPool
 
         enemy.transform.SetParent(_parent);
 
-        Transform spawnPosition = RandomPointGenerator.RandomPoint(_spawnPositions);
+        Transform spawnPosition = RandomPointGenerator.Instance.RandomSpawnPoint();
         enemy.transform.position = spawnPosition.position;
 
-        Transform attackPosition = RandomPointGenerator.RandomPoint(_attackPositions);
+        Transform attackPosition = RandomPointGenerator.Instance.RandomAttackPoint();
         enemy.SetDestination(attackPosition.position);
-        enemy.target = _character;
+        enemy._target = _character;
 
         if (_m_activeEnemies.Count < 5 && _m_activeEnemies.Add(enemy))
         {

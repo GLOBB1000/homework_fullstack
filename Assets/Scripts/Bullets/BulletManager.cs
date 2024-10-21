@@ -50,14 +50,7 @@ namespace ShootEmUp
             }
         }
 
-        public void SpawnBullet(
-            Vector2 position,
-            Color color,
-            int physicsLayer,
-            int damage,
-            bool isPlayer,
-            Vector2 velocity
-        )
+        public void SpawnBullet(Vector2 position, Color color, IHealth attacker, Vector2 velocity)
         {
             if (this.m_bulletPool.TryDequeue(out var bullet))
             {
@@ -68,12 +61,12 @@ namespace ShootEmUp
                 bullet = Instantiate(this.prefab, this.worldTransform);
             }
 
+            bullet.Init(attacker);
+
             bullet.transform.position = position;
             bullet.spriteRenderer.color = color;
-            bullet.gameObject.layer = physicsLayer;
-            bullet.damage = damage;
-            bullet.isPlayer = isPlayer;
             bullet.rigidbody2D.velocity = velocity;
+            bullet.gameObject.layer = attacker.GetType() == typeof(Player) ? (int)PhysicsLayer.PLAYER_BULLET : (int)PhysicsLayer.ENEMY_BULLET;
 
             if (m_activeBullets.Add(bullet))
             {
@@ -83,8 +76,15 @@ namespace ShootEmUp
 
         private void OnBulletCollision(Bullet bullet, Collision2D collision)
         {
-            this.DealDamage(bullet, collision.gameObject);
             this.RemoveBullet(bullet);
+        }
+
+        private void OnDestroy()
+        {
+            foreach (var bullet in m_activeBullets)
+            {
+                bullet.OnCollisionEntered -= OnBulletCollision;
+            }
         }
 
         private void RemoveBullet(Bullet bullet)
@@ -94,24 +94,6 @@ namespace ShootEmUp
                 bullet.OnCollisionEntered -= this.OnBulletCollision;
                 bullet.transform.SetParent(this.container);
                 this.m_bulletPool.Enqueue(bullet);
-            }
-        }
-
-        private void DealDamage(Bullet bullet, GameObject other)
-        {
-            int damage = bullet.damage;
-            if (damage <= 0)
-                return;
-
-            if(other.TryGetComponent<IHealth>(out IHealth health)){
-                var playerIm = health as Player;
-                var enemyIm = health as Enemy;
-
-                if(playerIm != null && !bullet.isPlayer)
-                    playerIm.ChangeHealth(damage);
-
-                if(enemyIm != null && bullet.isPlayer)
-                    enemyIm.ChangeHealth(damage);
             }
         }
     }

@@ -166,8 +166,8 @@ MonoBehaviour:
   _firePoint: {fileID: 3195880656587174614}
   _health: 3
   _rigidbody: {fileID: 659620479434099170}
-  _speed: 1
-  countdown: 1
+  _speed: 0.05
+  _countdown: 1
 --- !u!1 &2239154907127902911
 GameObject:
   m_ObjectHideFlags: 0

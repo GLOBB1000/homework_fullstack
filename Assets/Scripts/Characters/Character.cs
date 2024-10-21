@@ -1,15 +1,9 @@
 using ShootEmUp;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 
 public abstract class Character : MonoBehaviour, IAttacker
 {
-    [SerializeField]
-    protected bool _isPlayer;
-
     [SerializeField]
     protected Transform _firePoint;
 

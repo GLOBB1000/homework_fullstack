@@ -1,19 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace ShootEmUp
 {
     public sealed class EnemyManager : MonoBehaviour
-    {
-        [SerializeField]
-        private Transform[] _spawnPositions;
-
-        [SerializeField]
-        private Transform[] _attackPositions;
-        
+    {        
         [SerializeField]
         private Player _character;
 
@@ -44,7 +34,7 @@ namespace ShootEmUp
 
         private void CreateEnemyFromPool()
         {
-            _enemyPool.GetEnemy(_worldTransform, _spawnPositions, _attackPositions, _character, x =>
+            _enemyPool.GetEnemy(_worldTransform, _character, x =>
             {
                 x.OnDeath += OnDeath;
             });

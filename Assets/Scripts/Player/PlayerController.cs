@@ -9,19 +9,14 @@ namespace ShootEmUp
 
         private bool fireRequired;
 
-        private void Awake()
-        {
-            this.character.OnDeath += _ => Time.timeScale = 0;
-        }
-
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Space)) 
+            if (KeyboardHandler.Instance.Shoot()) 
                 fireRequired = true;
 
-            if (Input.GetKey(KeyCode.LeftArrow))
+            if (KeyboardHandler.Instance.MoveLeft())
                 character.SetDirection(-1);
-            else if (Input.GetKey(KeyCode.RightArrow))
+            else if (KeyboardHandler.Instance.MoveRight())
                 character.SetDirection(1);
             else
                 character.SetDirection(0);

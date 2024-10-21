@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 
 namespace ShootEmUp
 {
@@ -8,18 +7,18 @@ namespace ShootEmUp
     {
         public override event Action<IHealth> OnDeath;
 
-        private float moveDirection;
-
-        public float MoveDirection => moveDirection;
+        private float _moveDirection;
+        
+        public float MoveDirection => _moveDirection;
 
         protected override void Start()
         {
             base.Start();
         }
 
-        public void ChangeHealth(int damage)
+        public void ChangeHealth(int _damage)
         {
-            _health -= damage;
+            _health -= _damage;
 
             if (_health < 0)
                 OnDeath?.Invoke(this);
@@ -32,19 +31,12 @@ namespace ShootEmUp
 
         public override void Attack()
         {
-            _bulletManager.SpawnBullet(
-                    _firePoint.position,
-                    Color.blue,
-                    (int)PhysicsLayer.PLAYER_BULLET,
-                    1,
-                    true,
-                    _firePoint.rotation * Vector3.up * 3
-                );
+            _bulletManager.SpawnBullet(_firePoint.position, Color.blue, this, _firePoint.rotation * Vector3.up * 3);
         }
 
         protected override void FixedUpdate()
         {
-            Move(new Vector2(moveDirection, 0));
+            Move(new Vector2(_moveDirection, 0));
         }
 
         protected override void Move(Vector2 direction)
@@ -56,7 +48,7 @@ namespace ShootEmUp
 
         public void SetDirection(float direction)
         {
-            moveDirection = direction;
+            _moveDirection = direction;
         }
     }
 }

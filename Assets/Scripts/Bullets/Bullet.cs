@@ -8,10 +8,10 @@ namespace ShootEmUp
         public event Action<Bullet, Collision2D> OnCollisionEntered;
 
         [NonSerialized]
-        public bool isPlayer;
+        private IHealth _attacker;
         
-        [NonSerialized]
-        public int damage;
+        [SerializeField]
+        private int _damage;
 
         [SerializeField]
         public new Rigidbody2D rigidbody2D;
@@ -19,9 +19,28 @@ namespace ShootEmUp
         [SerializeField]
         public SpriteRenderer spriteRenderer;
 
+        public void Init(IHealth attacker)
+        {
+            _attacker = attacker;
+        }
+
         private void OnCollisionEnter2D(Collision2D collision)
         {
             this.OnCollisionEntered?.Invoke(this, collision);
+
+            DealDamage(collision.gameObject);
+        }
+
+        private void DealDamage(GameObject other)
+        {
+            if (_damage <= 0)
+                return;
+
+            if (other.TryGetComponent<IHealth>(out IHealth health))
+            {
+                if(health !=  _attacker)
+                    health.ChangeHealth(_damage);
+            }
         }
     }
 }

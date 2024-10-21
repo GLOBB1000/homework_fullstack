@@ -1,7 +1,5 @@
 using System;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace ShootEmUp
 {
@@ -10,14 +8,14 @@ namespace ShootEmUp
         public override event Action<IHealth> OnDeath;
 
         [SerializeField]
-        private float countdown;
+        private float _countdown;
 
         [NonSerialized]
-        public Player target;
+        public Player _target;
 
-        private Vector2 destination;
-        private float currentTime;
-        private bool isPointReached;
+        private Vector2 _destination;
+        private float _currentTime;
+        private bool _isPointReached;
 
         protected override void Start()
         {
@@ -26,24 +24,24 @@ namespace ShootEmUp
 
         public void Reset()
         {
-            this.currentTime = this.countdown;
+            this._currentTime = this._countdown;
         }
         
         public void SetDestination(Vector2 endPoint)
         {
-            this.destination = endPoint;
-            this.isPointReached = false;
+            this._destination = endPoint;
+            this._isPointReached = false;
         }
 
         protected override void FixedUpdate()
         {
-            if (this.isPointReached)
+            if (this._isPointReached)
             {
                 Attack();
             }
             else
             {
-                Move((this.destination - (Vector2)this.transform.position));
+                Move(this._destination - (Vector2)this.transform.position);
             }
         }
 
@@ -64,8 +62,8 @@ namespace ShootEmUp
         {
             if (direction.magnitude <= 0.25f)
             {
-                this.isPointReached = true;
-                Debug.Log($"Point is reachable {isPointReached}");
+                this._isPointReached = true;
+                Debug.Log($"Point is reachable {_isPointReached}");
                 return;
             }
 
@@ -77,26 +75,19 @@ namespace ShootEmUp
         public override void Attack()
         {
             //Attack:
-            if (this.target.GetHealth() <= 0)
+            if (this._target.GetHealth() <= 0)
                 return;
 
-            this.currentTime -= Time.fixedDeltaTime;
-            if (this.currentTime <= 0)
+            this._currentTime -= Time.fixedDeltaTime;
+            if (this._currentTime <= 0)
             {
-                Vector2 startPosition = this._firePoint.position;
-                Vector2 vector = (Vector2)this.target.transform.position - startPosition;
-                Vector2 direction = vector.normalized;
+                Vector2 _startPosition = this._firePoint.position;
+                Vector2 _vector = (Vector2)this._target.transform.position - _startPosition;
+                Vector2 _direction = _vector.normalized;
 
-                _bulletManager.SpawnBullet(
-                startPosition,
-                Color.red,
-                (int)PhysicsLayer.ENEMY_BULLET,
-                1,
-                false,
-                direction * 2
-            );
+                _bulletManager.SpawnBullet(_startPosition, Color.red, this, _direction * 2);
 
-                this.currentTime += this.countdown;
+                this._currentTime += this._countdown;
             }
         }
     }
