@@ -1,4 +1,6 @@
 using System;
+using Intrefaces;
+using Ship;
 using UnityEngine;
 
 namespace ShootEmUp
@@ -8,7 +10,7 @@ namespace ShootEmUp
         public event Action<Bullet, Collision2D> OnCollisionEntered;
 
         [NonSerialized]
-        private IHealth _attacker;
+        private ShipHandler _attacker;
         
         [SerializeField]
         private int _damage;
@@ -19,7 +21,7 @@ namespace ShootEmUp
         [SerializeField]
         public SpriteRenderer spriteRenderer;
 
-        public void Init(IHealth attacker)
+        public void Init(ShipHandler attacker)
         {
             _attacker = attacker;
         }
@@ -36,10 +38,10 @@ namespace ShootEmUp
             if (_damage <= 0)
                 return;
 
-            if (other.TryGetComponent<IHealth>(out IHealth health))
+            if (other.TryGetComponent<ShipHandler>(out ShipHandler shipHandler))
             {
-                if(health !=  _attacker)
-                    health.ChangeHealth(_damage);
+                if(shipHandler !=  _attacker)
+                    shipHandler.ChangeHealth(_damage);
             }
         }
     }

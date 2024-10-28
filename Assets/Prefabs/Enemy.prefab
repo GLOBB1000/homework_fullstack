@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5568771391735819375}
   - component: {fileID: 659620479434099170}
   - component: {fileID: 102605417607457000}
+  - component: {fileID: 4702773492291330173}
   m_Layer: 11
   m_Name: Enemy
   m_TagString: Untagged
@@ -162,12 +163,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e09a324f54d94d6e84681731f36566c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isPlayer: 0
+  ship: {fileID: 4702773492291330173}
+  _countdown: 2
+--- !u!114 &4702773492291330173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 559606060570185700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2833fe21c8ea415e9deccdb673ec7dfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   _firePoint: {fileID: 3195880656587174614}
-  _health: 3
   _rigidbody: {fileID: 659620479434099170}
-  _speed: 0.05
-  _countdown: 1
+  _speed: 5
+  _maxHealth: 10
 --- !u!1 &2239154907127902911
 GameObject:
   m_ObjectHideFlags: 0
@@ -193,7 +206,7 @@ Transform:
   m_GameObject: {fileID: 2239154907127902911}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: 0, y: -1.301, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
