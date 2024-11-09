@@ -163,8 +163,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e09a324f54d94d6e84681731f36566c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ship: {fileID: 4702773492291330173}
-  _countdown: 2
+  AIShip: {fileID: 4702773492291330173}
+  countdown: 3
 --- !u!114 &4702773492291330173
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,10 +177,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2833fe21c8ea415e9deccdb673ec7dfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _firePoint: {fileID: 3195880656587174614}
-  _rigidbody: {fileID: 659620479434099170}
-  _speed: 5
-  _maxHealth: 10
+  firePoint: {fileID: 3195880656587174614}
+  shipRigidBody: {fileID: 659620479434099170}
+  movementSpeed: 5
+  bulletPhysicsLayer: 13
+  projectileSpeed: 2
+  bulletColor: {r: 1, g: 0.13876066, b: 0, a: 1}
+  maxHealth: 10
 --- !u!1 &2239154907127902911
 GameObject:
   m_ObjectHideFlags: 0

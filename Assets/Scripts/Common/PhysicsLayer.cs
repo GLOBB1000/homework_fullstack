@@ -1,4 +1,4 @@
-namespace ShootEmUp
+namespace Common
 {
     public enum PhysicsLayer
     {

@@ -1,18 +1,19 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-namespace ShootEmUp
+namespace Enemy
 {
-    public sealed class EnemyManager : MonoBehaviour
+    public sealed class EnemySpawnPeriod : MonoBehaviour
     {
-        [SerializeField] private EnemySpawnerController _enemySpawnerController;
+        [SerializeField] private EnemySpawner enemySpawner;
 
         private IEnumerator Start()
         {
             while (true)
             {
                 yield return new WaitForSeconds(Random.Range(1, 2));
-                _enemySpawnerController.Spawn();
+                enemySpawner.Spawn();
             }
         }
     }

@@ -1,16 +1,16 @@
 using System.Collections.Generic;
-using Intrefaces;
-using Ship;
+using Common;
+using Level;
 using UnityEngine;
 
-namespace ShootEmUp
+namespace Bullets
 {
     public sealed class BulletManager : MonoBehaviour
     {
         public static BulletManager Instance;
         
         [SerializeField]
-        private BulletPoolPresenter bulletPoolPresenter;
+        private Pool<Bullet> bulletPoolPresenter;
         
         [SerializeField]
         private LevelBounds levelBounds;
@@ -29,38 +29,35 @@ namespace ShootEmUp
         private void FixedUpdate()
         {
             this.m_cache.Clear();
-            this.m_cache.AddRange(bulletPoolPresenter.BulletPool.GetActiveInstances());
+            this.m_cache.AddRange(bulletPoolPresenter.GetActiveInstances());
 
             for (int i = 0, count = this.m_cache.Count; i < count; i++)
             {
                 Bullet bullet = this.m_cache[i];
                 if (!this.levelBounds.InBounds(bullet.transform.position))
                 {
-                    Debug.Log("Remove bullet");
                     this.RemoveBullet(bullet);
                 }
             }
         }
 
-        public void SpawnBullet(Vector2 position, Color color, ShipHandler attacker, Vector2 velocity)
+        public void SpawnBullet(Vector2 position, Color color, PhysicsLayer layerMask, Vector2 velocity)
         {
-            if (this.bulletPoolPresenter.BulletPool.TryGetInstance(out var bullet))
+            if (this.bulletPoolPresenter.TryGetInstance(out var bullet))
             {
                 bullet.transform.SetParent(this.worldTransform);
             }
             else
             {
-                bullet = bulletPoolPresenter.BulletPool.CreatePoolInstance();
+                bullet = bulletPoolPresenter.CreatePoolInstance();
             }
 
-            bullet.Init(attacker);
+            bullet.SetPosition(position);
+            bullet.SetColor(color);
+            bullet.SetLayerMask(layerMask);
+            bullet.SetVelocity(velocity);
 
-            bullet.transform.position = position;
-            bullet.spriteRenderer.color = color;
-            bullet.rigidbody2D.velocity = velocity;
-            bullet.gameObject.layer = attacker.GetComponent<Player>() != null ? (int)PhysicsLayer.PLAYER_BULLET : (int)PhysicsLayer.ENEMY_BULLET;
-
-            if (bulletPoolPresenter.BulletPool.TryAddToHashSet(bullet))
+            if (bulletPoolPresenter.TryAddToHashSet(bullet))
             {
                 bullet.OnCollisionEntered += OnBulletCollision;
             }
@@ -73,7 +70,7 @@ namespace ShootEmUp
 
         private void OnDestroy()
         {
-            foreach (var bullet in bulletPoolPresenter.BulletPool.GetActiveInstances())
+            foreach (var bullet in bulletPoolPresenter.GetActiveInstances())
             {
                 bullet.OnCollisionEntered -= OnBulletCollision;
             }
@@ -81,11 +78,10 @@ namespace ShootEmUp
 
         private void RemoveBullet(Bullet bullet)
         {
-            Debug.Log("Remove bullet"); 
-            if (!this.bulletPoolPresenter.BulletPool.TryRemoveInstance(bullet)) return;
+            if (!this.bulletPoolPresenter.TryRemoveInstance(bullet)) return;
             
             bullet.OnCollisionEntered -= this.OnBulletCollision;
-            bulletPoolPresenter.BulletPool.ReturnToPool(bullet, bullet.transform);
+            bulletPoolPresenter.ReturnToPool(bullet, bullet.transform);
         }
     }
 }

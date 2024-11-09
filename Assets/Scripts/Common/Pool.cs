@@ -1,28 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Object = UnityEngine.Object;
 
-namespace Intrefaces
+namespace Common
 {
-    public class Pool<T> where T : Object
+    public class Pool<T> : MonoBehaviour where T : Object
     {
         private readonly HashSet<T> _activeInstances = new();
         private readonly Queue<T> _instancePool = new();
-        
-        private T _prefab;
 
-        private Transform _container;
+        [SerializeField] private T prefab;
 
-        public Pool(Transform parent, T prefab)
+        [SerializeField] private Transform container;
+
+        [SerializeField] private int poolSize;
+
+        protected void InitPool()
         {
-            _container = parent;
-            _prefab = prefab;
-        }
-
-        public void InitPool(int instanceCount)
-        {
-            for (int i = 0; i < instanceCount; i++)
+            for (int i = 0; i < poolSize; i++)
             {
                 CreatePoolInstance();
             }
@@ -30,7 +27,7 @@ namespace Intrefaces
 
         public T CreatePoolInstance()
         {
-            T instance = Object.Instantiate(_prefab, _container);
+            T instance = Object.Instantiate(prefab, container);
             _instancePool.Enqueue(instance);
             return instance;
         }
@@ -42,7 +39,7 @@ namespace Intrefaces
 
         public void ReturnToPool(T item, Transform instancer)
         {
-            instancer.SetParent(_container);
+            instancer.SetParent(container);
             _activeInstances.Remove(item);
             _instancePool.Enqueue(item);
         }

@@ -1,18 +1,17 @@
 using System;
 using UnityEngine;
-using Ship;
+using Ships;
+using UnityEngine.Serialization;
 
-namespace ShootEmUp
+namespace Enemy
 {
     public sealed class EnemyAI : MonoBehaviour
     {
-        public ShipHandler ship;
+        public Ship AIShip;
 
-        [SerializeField]
-        private float _countdown;
+        [SerializeField] private float countdown;
 
-        [NonSerialized]
-        public Player Target;
+        [NonSerialized] public Ship PlayerShip;
 
         private Vector2 _destination;
         private float _currentTime;
@@ -20,13 +19,13 @@ namespace ShootEmUp
 
         private void Start()
         {
-            ship.ResetShipInstance();
-            ship.OnShipDeath += ShipOnOnShipDeath;
+            AIShip.ResetShipInstance();
+            AIShip.OnShipDeath += AIShipOnOnAIShipDeath;
         }
 
-        private void ShipOnOnShipDeath()
+        private void AIShipOnOnAIShipDeath()
         {
-            ship.ResetShipInstance();
+            AIShip.ResetShipInstance();
         }
         
         public void SetDestination(Vector2 endPoint)
@@ -52,24 +51,24 @@ namespace ShootEmUp
             if (direction.magnitude <= 0.25f)
             {
                 this._isPointReached = true;
-                Debug.Log($"Point is reachable {_isPointReached}");
                 return;
             }
 
-            ship.Move(direction, Time.fixedDeltaTime);
+            AIShip.Move(direction, Time.fixedDeltaTime);
         }
 
         private void ShipAttack()
         {
             //Attack:
-            if (Target.ShipHandlerInstance.GetHealth() <= 0)
+            if (PlayerShip.GetHealth() <= 0)
                 return;
 
             this._currentTime -= Time.fixedDeltaTime;
+            
             if (this._currentTime <= 0)
             {
-                ship.Attack(Color.red ,Target.transform);
-                this._currentTime += this._countdown;
+                AIShip.Attack(PlayerShip.transform);
+                this._currentTime += this.countdown;
             }
         }
     }

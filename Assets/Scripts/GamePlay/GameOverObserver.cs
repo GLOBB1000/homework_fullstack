@@ -1,26 +1,26 @@
-using Intrefaces;
-using Ship;
-using ShootEmUp;
+using Ships;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class GameOverObserver : MonoBehaviour
+namespace GamePlay
 {
-    [FormerlySerializedAs("character")] [SerializeField]
-    private ShipHandler characterShip;
-
-    private void OnEnable()
+    public class GameOverObserver : MonoBehaviour
     {
-        characterShip.OnShipDeath += GameOver;
-    }
+        [SerializeField] private Ship characterShip;
 
-    private void OnDisable()
-    {
-        characterShip.OnShipDeath -= GameOver;
-    }
+        private void OnEnable()
+        {
+            characterShip.OnShipDeath += GameOver;
+        }
 
-    private void GameOver()
-    {
-        Time.timeScale = 0;
+        private void OnDisable()
+        {
+            characterShip.OnShipDeath -= GameOver;
+        }
+
+        private void GameOver()
+        {
+            Time.timeScale = 0;
+        }
     }
 }

@@ -1,30 +1,22 @@
 using System;
-using Intrefaces;
-using Ship;
+using Common;
+using Ships;
 using UnityEngine;
 
-namespace ShootEmUp
+namespace Bullets
 {
     public sealed class Bullet : MonoBehaviour
     {
         public event Action<Bullet, Collision2D> OnCollisionEntered;
 
-        [NonSerialized]
-        private ShipHandler _attacker;
-        
         [SerializeField]
         private int _damage;
 
         [SerializeField]
-        public new Rigidbody2D rigidbody2D;
+        private new Rigidbody2D rigidbody2D;
 
         [SerializeField]
-        public SpriteRenderer spriteRenderer;
-
-        public void Init(ShipHandler attacker)
-        {
-            _attacker = attacker;
-        }
+        private SpriteRenderer spriteRenderer;
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
@@ -38,11 +30,31 @@ namespace ShootEmUp
             if (_damage <= 0)
                 return;
 
-            if (other.TryGetComponent<ShipHandler>(out ShipHandler shipHandler))
+            if (other.TryGetComponent<Ship>(out Ship shipHandler))
             {
-                if(shipHandler !=  _attacker)
-                    shipHandler.ChangeHealth(_damage);
+                shipHandler.ChangeHealth(_damage);
+                    
             }
+        }
+
+        public void SetVelocity(Vector2 velocity)
+        {
+            rigidbody2D.velocity = velocity;
+        }
+
+        public void SetColor(Color color)
+        {
+            spriteRenderer.color = color;
+        }
+
+        public void SetPosition(Vector2 position)
+        {
+            transform.position = position;
+        }
+
+        public void SetLayerMask(PhysicsLayer layerMask)
+        {
+            gameObject.layer = (int)layerMask;
         }
     }
 }
