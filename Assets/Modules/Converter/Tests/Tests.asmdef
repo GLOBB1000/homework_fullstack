@@ -1,10 +1,10 @@
 {
-    "name": "InventoryTests",
+    "name": "ConverterTests",
     "rootNamespace": "",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "Inventory"
+        "Converter"
     ],
     "includePlatforms": [
         "Editor"
