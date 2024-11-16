@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using UnityEngine;
 
 namespace Inventories
@@ -14,16 +13,16 @@ namespace Inventories
         public event Action<Item, Vector2Int> OnMoved;
         public event Action OnCleared;
 
-        private int width;
-        private int height;
+        private readonly int width;
+        private readonly int height;
 
-        private Item[,] inventoryCells;
+        private readonly Item[,] inventoryCells;
 
         public int Width => width;
         public int Height => height;
         public int Count => inventoryItems.Count;
 
-        private List<KeyValuePair<Item, Vector2Int>> inventoryItems = new();
+        private readonly Dictionary<Item, Vector2Int> inventoryItems = new Dictionary<Item, Vector2Int>();
 
         public Inventory(in int width, in int height)
         {
@@ -143,7 +142,8 @@ namespace Inventories
             if (!CanAddItem(item, new Vector2Int(posX, posY)))
                 return false;
 
-            inventoryItems.Add(new KeyValuePair<Item, Vector2Int>(item, new Vector2Int(posX, posY)));
+            inventoryItems.Add(item, new Vector2Int(posX, posY));
+            
             FillInventoryCells(posX, posY, item.Size.x, item.Size.y, item);
 
             OnAdded?.Invoke(item, new Vector2Int(posX, posY));
@@ -171,7 +171,8 @@ namespace Inventories
 
             FindFreePosition(item, out Vector2Int position);
 
-            inventoryItems.Add(new KeyValuePair<Item, Vector2Int>(item, position));
+            inventoryItems.Add(item, position);
+            
             FillInventoryCells(position.x, position.y, item.Size.x, item.Size.y, item);
 
             OnAdded?.Invoke(item, new Vector2Int(position.x, position.y));
@@ -235,7 +236,7 @@ namespace Inventories
         /// </summary>
         public bool Contains(in Item item)
         {
-            return inventoryItems.Select(it => it.Key).ToHashSet().TryGetValue(item, out var value);
+            return item != null && inventoryItems.ContainsKey(item);
         }
 
         /// <summary>
@@ -282,12 +283,8 @@ namespace Inventories
             if (!Contains(item))
                 return false;
             
-            var itemToRemove = item;
-            var listItem = inventoryItems.Find(x => x.Key.Equals(itemToRemove));
-            inventoryItems.Remove(listItem);
-            
             var positions = GetPositions(item);
-            
+
             if (positions == null)
                 return false;
 
@@ -295,6 +292,7 @@ namespace Inventories
                 inventoryCells[itemPos.x, itemPos.y] = null;
 
             position = positions[0];
+            inventoryItems.Remove(item);
             
             OnRemoved?.Invoke(item, position);
 
@@ -350,7 +348,6 @@ namespace Inventories
             if(!Contains(item) && position == null)
                 throw new KeyNotFoundException();
 
-
             return position;
         }
 
@@ -360,27 +357,26 @@ namespace Inventories
 
             if (item == null)
                 return false;
+
+            if (!inventoryItems.TryGetValue(item, out var position))
+                return false;
             
             var positionsList = new List<Vector2Int>();
             
-            for (int x = 0; x < width; x++)
+            for(int x = position.x; x < position.x + item.Size.x; x++)
+            for (int y = position.y; y < position.y + item.Size.y; y++)
             {
-                for (int y = 0; y < height; y++)
-                {
-                    if(inventoryCells[x, y] == null)
-                        continue;
-                    
-                    if (inventoryCells[x, y].Equals(item))
-                        positionsList.Add(new Vector2Int(x, y));
-                }
-            }
+                if(inventoryCells[x, y] == null)
+                    continue;
+                
+                if (!inventoryCells[x, y].Equals(item)) continue;
 
+                positionsList.Add(new Vector2Int(x, y));
+            }
+            
             positions = positionsList.Count == 0 ? null : positionsList.ToArray();
 
-            if (positions == null)
-                return false;
-
-            return true;
+            return positions != null;
         }
 
         /// <summary>
@@ -391,9 +387,7 @@ namespace Inventories
             if(inventoryItems is { Count: 0 })
                 return;
             
-            for (int i = 0; i < width; i++)
-            for (int j = 0; j < height; j++)
-                inventoryCells[i, j] = null;
+            Array.Clear(inventoryCells, 0, inventoryCells.Length);
             
             inventoryItems.Clear();
             OnCleared?.Invoke();
@@ -404,7 +398,15 @@ namespace Inventories
         /// </summary>
         public int GetItemCount(string name)
         {
-            return inventoryItems.Count(it => it.Key.Name == name);
+            var count = 0;
+            
+            for (int i = 0; i < inventoryItems.Count; i++)
+            {
+                if (inventoryItems.Keys.ElementAt(i).Name == name)
+                    count++;
+            }
+            
+            return count;
         }
 
         /// <summary>
@@ -441,6 +443,7 @@ namespace Inventories
                 inventoryCells[itemPoses.x, itemPoses.y] = null;
             
             FillInventoryCells(position.x, position.y, item.Size.x, item.Size.y, item);
+            inventoryItems[item] = new Vector2Int(position.x, position.y);
             
             OnMoved?.Invoke(item, position);
             return true;
@@ -469,9 +472,7 @@ namespace Inventories
         /// </summary>
         public void CopyTo(in Item[,] matrix)
         {
-            for (var i = 0; i < inventoryCells.GetLength(0); i++)
-            for (var j = 0; j < inventoryCells.GetLength(1); j++)
-                matrix.SetValue(inventoryCells[i, j], i, j);
+            Array.Copy(inventoryCells, matrix, inventoryCells.Length);
         }
 
         public IEnumerator<Item> GetEnumerator()
@@ -481,8 +482,7 @@ namespace Inventories
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            Debug.Log("Падаем тут");
-            throw new NotImplementedException();
+            return this.GetEnumerator();
         }
     }
 }
