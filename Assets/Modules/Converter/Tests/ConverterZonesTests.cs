@@ -15,7 +15,7 @@ namespace Modules.Converter
 
         [TestCase(1, 1, true)]
         [TestCase(5, 5, true)]
-        [TestCase(10, 0, false)]
+        [TestCase(10, 5, true)]
         [TestCase(-1, 0, false)]
         [TestCase(0, 0, true)]
         
@@ -27,128 +27,138 @@ namespace Modules.Converter
 
             bool success = converterZone.AddItem(itemConfig, count);
 
-            int actualCount = converterZone.GetAmount(itemConfig);
+            int actualCount = converterZone.GetAmountOfCurrentItem();
 
-            Assert.AreEqual(success, expectedSuccess);
+            Assert.AreEqual(expectedSuccess, success);
             Assert.AreEqual(actualCount, expectedCount);
         }
 
-        //[TestCaseSource(nameof(AddItemByIndexCases))]
-        [TestCaseSource(nameof(AddItemByIndexCases))]
-        public void AddItemByIndex(ConverterZone zone, ItemConfig itemConfig, int count, int expectedCount, bool expectedSuccess)
+        [TestCase(10, 5, 5, true)]
+        [TestCase(3, 3, 0, true)]
+        public void AddItemAndReturnSomeItemsBack(int count, int expectedCount, int expectedReturnValue, bool expectedSuccess)
+        {
+            ItemConfig itemConfig = new ItemConfig("Wood");
+            
+            ConverterZone converterZone = new ConverterZone(5, itemConfig);
+
+            bool success = converterZone.AddItem(itemConfig, count, out int returnableCount);
+
+            int actualCount = converterZone.GetAmountOfCurrentItem();
+
+            Assert.AreEqual(expectedSuccess, success);
+            Assert.AreEqual(actualCount, expectedCount);
+            Assert.AreEqual(expectedReturnValue, returnableCount);
+        }
+
+        [TestCase(10, 5, 5, false)]
+        [TestCase(3, 3, 0, true)]
+        public void AddItemAndReturnSomeItemsBackForCycle(int count, int expectedCount, int expectedReturnValue, bool expectedSuccess)
         {
             //Arrange:
+            ItemConfig itemConfig = new ItemConfig("Wood");
             
+            ConverterZone converterZone = new ConverterZone(5, itemConfig);
+
+            bool success = false;
+            int returnableCount = 0;
+            
+            //Act:
+            for (int i = 0; i < count; i++)
+            {
+                success = converterZone.AddItem(itemConfig, 1, out var returnableValue);
+                returnableCount += returnableValue;
+            }
+
+            int actualCount = converterZone.GetAmountOfCurrentItem();
+
+            //Assert
+            Assert.AreEqual(expectedSuccess, success);
+            Assert.AreEqual(actualCount, expectedCount);
+            Assert.AreEqual(expectedReturnValue, returnableCount);
+        }
+
+        [TestCaseSource(nameof(AddItemByIndexCases))]
+        public void AddItemByIndex(ItemConfig itemConfig, int count, int expectedCount, bool expectedSuccess)
+        {
+            //Arrange:
+            ConverterZone zone = new ConverterZone(5, new ItemConfig("Wood"));
             
             //Act:
             bool success = zone.AddItem(itemConfig, count);
             
             //Assert:
-            Assert.AreEqual(expectedCount, zone.GetAmount(itemConfig));
+            Assert.AreEqual(expectedCount, zone.GetAmountOfCurrentItem());
             Assert.AreEqual(success, expectedSuccess);
         }
 
         private static IEnumerable<TestCaseData> AddItemByIndexCases()
         {
-            yield return new TestCaseData(
-                    new ConverterZone(5, new ItemConfig("Wood")),
-                    new ItemConfig("Wood"),
-                    2, 
-                    2, 
-                    true)
-                .SetName("AddItemByIndexCases Wood");
+            yield return new TestCaseData(new ItemConfig("Wood"), 2, 2, true).SetName("AddItemByIndexCases Wood");
             
-            yield return new TestCaseData(
-                    new ConverterZone(5, new ItemConfig("Wood")),
-                    new ItemConfig("Cement"), 
-                    1, 
-                    0, 
-                    false)
-                .SetName("AddItemByIndexCases Cement");
+            yield return new TestCaseData(new ItemConfig("Cement"), 1, 0, false).SetName("AddItemByIndexCases Cement");
             
-            yield return new TestCaseData(
-                    new ConverterZone(5, new ItemConfig("Wood")),
-                    null, 
-                    1, 
-                    0, 
-                    false)
-                .SetName("null");
+            yield return new TestCaseData(null, 1, 0, false).SetName("null");
             
-            yield return new TestCaseData(
-                    new ConverterZone(5, new ItemConfig("Wood")),
-                    new ItemConfig(""), 
-                    1, 
-                    0, 
-                    false)
-                .SetName("without name");
+            yield return new TestCaseData(new ItemConfig(""), 1, 0, false).SetName("without name");
         }
 
         [Test]
-        public void GetCount()
+        public void GetCurrentItemAmount()
         {
             //Arrange:
             ConverterZone converterZone = new ConverterZone(5, new ItemConfig("Wood"));
             ItemConfig itemConfig = new ItemConfig("Wood");
-            int count = converterZone.GetAmount(itemConfig);
+            int count = converterZone.GetAmountOfCurrentItem();
             
             //Act:
 
             var success = converterZone.AddItem(itemConfig, count);
-            var actualCount = converterZone.GetAmount(itemConfig);
+            var actualCount = converterZone.GetAmountOfCurrentItem();
 
             //Assert:
             
             Assert.AreEqual(count, actualCount);
             Assert.IsTrue(success);
         }
-
-        [TestCaseSource(nameof(GetCountByIdCases))]
-        public void GetCountById(ItemConfig item, int expectedCount)
-        {
-            //Arrange
-            
-            ConverterZone zone = new ConverterZone(5, new ItemConfig("Wood"), 2);
-            
-            //Assert
-            Assert.AreEqual(expectedCount, zone.GetAmount(item));
-        }
-
-        private static IEnumerable<TestCaseData> GetCountByIdCases()
-        {
-            yield return new TestCaseData(new ItemConfig("Wood"), 2).SetName("Get count by wood");
-            
-            yield return new TestCaseData(new ItemConfig("Bricks"), 0).SetName("Get count by bricks");
-            
-            yield return new TestCaseData(null, 0).SetName("Get count of null");
-        }
-
-        [TestCase(0, 0)]
-        public void GetItem(int count, int expectedCount)
+        
+        [TestCase(0, 0, 5)]
+        [TestCase(-1, 0, 5)]
+        [TestCase(10, 0, 5)]
+        [TestCase(3, 3, 2)]
+        public void GetItem(int count, int expectedCount, int expectedAmount)
         {
             //Arrange:
             ConverterZone converterZone = new ConverterZone(5, new ItemConfig("Wood"), 5);
             ItemConfig itemConfig = new ItemConfig("Wood");
-        }
-
-        [TestCaseSource(nameof(GetItemByIdCases))]
-        public void GetItemById(ItemConfig item, int countOfItems, int expectedCount, int expectedAmount)
-        {
-            //Arrange
-            ConverterZone converterZone = new ConverterZone(5, new ItemConfig("Wood"), 5);
             
             //Act:
-            int returnCount = converterZone.GetCountOfItems(item, countOfItems);
-            int amount = converterZone.GetAmount(item);
+            int returnCount = converterZone.GetCountOfItems(itemConfig, count);
+            int amount = converterZone.GetAmountOfCurrentItem();
             
             //Assert
             Assert.AreEqual(expectedCount, returnCount);
             Assert.AreEqual(expectedAmount, amount);
         }
 
-        private static IEnumerable<TestCaseData> GetItemByIdCases()
+        [TestCaseSource(nameof(GetCertainNumbersOfItemCases))]
+        public void GetCertainNumbersOfItem(ItemConfig item, int countOfItems, int expectedCount, int expectedAmount)
+        {
+            //Arrange
+            ConverterZone converterZone = new ConverterZone(5, new ItemConfig("Wood"), 5);
+            
+            //Act:
+            int returnCount = converterZone.GetCountOfItems(item, countOfItems);
+            int amount = converterZone.GetAmountOfCurrentItem();
+            
+            //Assert
+            Assert.AreEqual(expectedCount, returnCount);
+            Assert.AreEqual(expectedAmount, amount);
+        }
+
+        private static IEnumerable<TestCaseData> GetCertainNumbersOfItemCases()
         {
             yield return new TestCaseData(new ItemConfig("Wood"), 2, 2, 3).SetName("Get count by wood");
-            yield return new TestCaseData(new ItemConfig("Bricks"), 2, 0, 5).SetName("Get count by wood");
+            yield return new TestCaseData(new ItemConfig("Bricks"), 2, 0, 5).SetName("Get count by bricks");
             yield return new TestCaseData(null, 0, 0, 5).SetName("null");
         }
     }

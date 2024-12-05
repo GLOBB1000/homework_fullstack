@@ -6,52 +6,112 @@ namespace Modules.Converter
     public class ConverterZone
     {
         private ItemConfig currentItem;
-        private int currentCount;
+        private int currentAmount;
+
+        private readonly int zoneLimit;
         
-        public int ZoneLimit { get; private set; }
-        
-        public ConverterZone(int zoneLimit, ItemConfig item, int count = 0)
+        public ConverterZone(int zoneLimit, ItemConfig item, int amount = 0)
         {
-            ZoneLimit = zoneLimit;
+            this.zoneLimit = zoneLimit;
             currentItem = item;
-            currentCount = count;
+            currentAmount = amount;
+        }
+
+        public bool CanAddItem(int count)
+        {
+            return CanAddItem(currentItem, count);
+        }
+
+        private bool CanAddItem(ItemConfig item, int count)
+        {
+            if (currentAmount >= zoneLimit || count < 0)
+                return false;
+
+            if (item == null)
+                return false;
+
+            return currentItem == null || currentItem.Id == item.Id;
+        }
+
+        public bool AddItem(int count)
+        {
+            return AddItem(currentItem, count);
         }
 
         public bool AddItem(ItemConfig item, int count)
         {
-            if (count > ZoneLimit || count < 0)
+            if (!CanAddItem(item, count))
                 return false;
 
-            if (item == null)
-                return false;
-
-            if (currentItem != null && currentItem.Id != item.Id)
-                return false;
+            if (count + currentAmount <= zoneLimit && count <= zoneLimit)
+                currentAmount += count;
+            else
+                currentAmount += zoneLimit - currentAmount;
             
             currentItem = item;
-            currentCount += count;
-
+            
             return true;
         }
 
-        public int GetAmount(ItemConfig item)
+        public bool AddItem(ItemConfig item, int count, out int returnedAmount)
+        {
+            returnedAmount = count - (zoneLimit - currentAmount);
+
+            if (!AddItem(item, count)) return false;
+            
+            if (returnedAmount <= 0)
+                returnedAmount = 0;
+                
+            return true;
+
+        }
+
+        public int GetAmountOfCurrentItem()
+        {
+            return currentAmount;
+        }
+
+        public ItemConfig GetCurrentItem()
+        {
+            return currentItem;
+        }
+
+        public bool CanGetCountOfItems(int countToReturn)
+        {
+            return CanGetCountOfItems(currentItem, countToReturn);
+        }
+        
+        private bool CanGetCountOfItems(ItemConfig item, int countToReturn)
         {
             if (item == null)
-                return 0;
+                return false;
             
-            return item.Id != currentItem.Id ? 0 : currentCount;
+            if (item.Id != currentItem.Id)
+                return false;
+
+            return countToReturn >= 0 && countToReturn <= zoneLimit && countToReturn <= currentAmount;
+        }
+
+        public int GetCountOfItems(int countToReturn)
+        {
+            return GetCountOfItems(currentItem, countToReturn);
         }
 
         public int GetCountOfItems(ItemConfig item, int countToReturn)
         {
-            if (item == null)
+            if (currentAmount <= 0)
+            {
+                currentAmount = 0;
+                return currentAmount;
+            }
+
+            if (!CanGetCountOfItems(item, countToReturn))
                 return 0;
-            
-            if (item.Id != currentItem.Id)
-                return 0;
-            
-            currentCount -= countToReturn;
+
+            currentAmount -= countToReturn;
             return countToReturn;
         }
+
+        
     }
 }

@@ -5,20 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="aae27684-1872-4ade-8bf7-58932d0ddd8d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Modules/Converter/Scripts/ResourсeConverter.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Modules/Converter/Tests/ResourсeConverterTests.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.homework_fullstack/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.homework_fullstack/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Inventory.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Inventory/Scripts.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Inventory/Scripts/Inventory.asmdef" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Inventory/Scripts/Inventory.asmdef.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Inventory/Scripts/Inventory.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Inventory/Scripts/Inventory.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Inventory/Scripts/Item.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Inventory/Scripts/Item.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Inventory/Tests.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Inventory/Tests/InventoryTests.asmdef" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Inventory/Tests/InventoryTests.asmdef.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Inventory/Tests/InventoryTests.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Inventory/Tests/InventoryTests.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Modules/Converter/Scripts/ConverterZone.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Modules/Converter/Scripts/ConverterZone.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Modules/Converter/Scripts/ItemConfig.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Modules/Converter/Scripts/ItemConfig.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Modules/Converter/Scripts/ResourseConverter.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Modules/Converter/Scripts/ResourseConverter.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Modules/Converter/Scripts/ResourсeConverter.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Modules/Converter/Tests/ConverterZonesTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Modules/Converter/Tests/ConverterZonesTests.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Modules/Converter/Tests/ResourseConverterTests.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Modules/Converter/Tests/ResourseConverterTests.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Modules/Converter/Tests/ResourсeConverterTests.cs.meta" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,6 +102,11 @@
       <workItem from="1731360055524" duration="1737000" />
       <workItem from="1731397087291" duration="9073000" />
       <workItem from="1731502804965" duration="1048000" />
+      <workItem from="1731937001101" duration="10821000" />
+      <workItem from="1731957000925" duration="1466000" />
+      <workItem from="1732205044329" duration="6118000" />
+      <workItem from="1732258926387" duration="1964000" />
+      <workItem from="1732963714924" duration="4923000" />
     </task>
     <servers />
   </component>
