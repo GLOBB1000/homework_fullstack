@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using GameCycleInstances;
 using Modules;
+using SnakeGame;
 using UnityEngine;
 using Zenject;
 
-namespace CoinsHandlers
+namespace Coins
 {
     public class CoinsPool : MonoMemoryPool<Vector2Int, Coin>, ICoinsSpawner
     {
@@ -13,12 +15,23 @@ namespace CoinsHandlers
         
         private readonly List<ICoin> coins = new();
 
-        public List<ICoin> SpawnedCoins()
+        public int CountOfCoins()
         {
-            return coins;
+            return coins.Count;
         }
 
-        ICoin ICoinsSpawner.Spawn(Vector2Int position)
+        public bool CanGetCoin(Vector2Int point)
+        {
+            var coin = coins.Find(x => x.Position == point);
+
+            if (coin == null)
+                return false;
+            
+            Despawn(coin);
+            return true;
+        }
+
+        public ICoin CreateCoin(Vector2Int position)
         {
             var coin = this.Spawn(position);
             coin.Position = position;
@@ -29,7 +42,7 @@ namespace CoinsHandlers
             return coin;
         }
 
-        public void Despawn(ICoin coin)
+        private void Despawn(ICoin coin)
         {
             OnDespawned(coin as Coin);
             coins.Remove(coin);

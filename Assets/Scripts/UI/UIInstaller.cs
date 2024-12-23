@@ -20,7 +20,7 @@ namespace Installers
         
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<ScoreObserver>().AsSingle().NonLazy();
+            
             Container.BindInterfacesAndSelfTo<ScorePresenter>().FromNew().AsSingle().WithArguments(scoreText, score).NonLazy();
             
             Container.BindInterfacesAndSelfTo<ProgressPresenter>().FromNew().AsSingle().WithArguments(progressText, difficulty).NonLazy();

@@ -1,71 +1,68 @@
 using System;
-using CoinsHandlers;
-using GameStateUI;
+using Coins;
 using Modules;
-using SnakeGame;
-using UnityEngine;
+using Uttilities;
 using Zenject;
 
-namespace GameCycle
+namespace GameCycleInstances
 {
-    public class GameCycleController : IGameCycleController, IInitializable, IDisposable
+    public class GameCycleController : IInitializable, IDisposable
     {
-        private IDifficulty _difficulty;
-        private ISnake _snake;
+        private IGameCycle _gameCycle;
+
         private ICoinsSpawner _coinsSpawner;
-        private IGameState _gameState;
+        private ICollision _collision_component;
         
-        public GameCycleController(IDifficulty difficulty, ISnake snake, ICoinsSpawner coinsSpawner, IGameState gameState)
+        private IDifficulty _difficulty;
+        
+        public GameCycleController(ICollision collision, ICoinsSpawner coinsSpawner, IGameCycle gameCycle, IDifficulty difficulty)
         {
+            _gameCycle = gameCycle;
             _difficulty = difficulty;
-            _snake = snake;
+
+            _collision_component = collision;
+
             _coinsSpawner = coinsSpawner;
-            _gameState = gameState;
+
+            _collision_component.OnCollision += GameOver;
         }
         
         public void Initialize()
         {
-            StartGame();
-            
-            _snake.OnSelfCollided += SnakeOnSelfCollided;
+            _gameCycle.StartGame();
             _coinsSpawner.OnCoinDeSpawned += CoinsSpawnerOnCoinDeSpawned;
+
+            SetNextLevel();
         }
 
         private void CoinsSpawnerOnCoinDeSpawned()
         {
-            if (_coinsSpawner.SpawnedCoins().Count == 0)
-            {
-                if(SetNextLevel())
-                    return;
-                
-                _gameState.ActivateStateScreen(GameState.GAMEWIN);
-            }
-        }
+            if (_coinsSpawner.CountOfCoins() != 0) return;
 
-        private void SnakeOnSelfCollided()
+            if(SetNextLevel())
+                return;
+            
+            _gameCycle.WinGame();
+        }
+        
+        private bool SetNextLevel()
         {
-            _gameState.ActivateStateScreen(GameState.GAMEOVER);
+            var canMoveToNext = _difficulty.Next(out var nextLevel);
+            
+            _gameCycle.ClearLevel(nextLevel);
+            
+            return canMoveToNext;
         }
 
         public void Dispose()
         {
-            _snake.OnSelfCollided -= SnakeOnSelfCollided;
-        }
-        
-        public void StartGame()
-        {
-            Debug.Log("Starting Game");
-            SetNextLevel();
+            _collision_component.OnCollision -= GameOver;
+            _coinsSpawner.OnCoinDeSpawned -= CoinsSpawnerOnCoinDeSpawned;
         }
 
-        public bool SetNextLevel()
+        private void GameOver()
         {
-            return _difficulty.Next(out var nextLevel);
-        }
-
-        public void GameOver()
-        {
-            throw new System.NotImplementedException();
+            _gameCycle.LoseGame();
         }
 
     }

@@ -1,5 +1,6 @@
 ﻿using System;
-using CoinsHandlers;
+using Coins;
+using GameCycleInstances;
 using Modules;
 using UnityEngine;
 using Zenject;
