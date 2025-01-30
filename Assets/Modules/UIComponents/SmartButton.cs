@@ -8,7 +8,7 @@ namespace Modules.UI
         IPointerDownHandler,
         IPointerUpHandler,
         IPointerEnterHandler,
-        IPointerExitHandler
+        IPointerExitHandler 
     {
         public event Action OnClick;
         public event Action OnHold;
