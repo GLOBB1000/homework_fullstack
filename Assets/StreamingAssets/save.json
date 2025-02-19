@@ -1,0 +1,523 @@
+{
+  "$type": "System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[System.Collections.Generic.List`1[[SampleGame.SerializedData.SerializedComponentData, Assembly-CSharp]], mscorlib]], mscorlib",
+  "1": {
+    "$type": "System.Collections.Generic.List`1[[SampleGame.SerializedData.SerializedComponentData, Assembly-CSharp]], mscorlib",
+    "$values": [
+      {
+        "$type": "SampleGame.SerializedData.SerializedHealth, Assembly-CSharp",
+        "ClassName": "SerializedHealth",
+        "CurrentHealth": 100
+      },
+      {
+        "$type": "SampleGame.SerializedData.SerializedDestinationPoint, Assembly-CSharp",
+        "Value": {
+          "$type": "SampleGame.Common.SerializedVector3, Assembly-CSharp",
+          "x": 7.0,
+          "y": 0.0,
+          "z": 7.0
+        },
+        "ClassName": "SerializedDestinationPoint"
+      },
+      {
+        "$type": "SampleGame.SerializedData.SerializedTargetObject, Assembly-CSharp",
+        "ClassName": "SerializedTargetObject",
+        "EntityID": -1
+      },
+      {
+        "$type": "SampleGame.SerializedData.SerializedTeam, Assembly-CSharp",
+        "ClassName": "SerializedTeam",
+        "Type": 1
+      },
+      {
+        "$type": "SampleGame.SerializedData.SerializedCountDown, Assembly-CSharp",
+        "Current": 3.0,
+        "ClassName": "SerializedCountDown"
+      }
+    ]
+  },
+  "2": {
+    "$type": "System.Collections.Generic.List`1[[SampleGame.SerializedData.SerializedComponentData, Assembly-CSharp]], mscorlib",
+    "$values": [
+      {
+        "$type": "SampleGame.SerializedData.SerializedRecourseBag, Assembly-CSharp",
+        "Type": 0,
+        "Current": 23,
+        "ClassName": "SerializedRecourseBag"
+      },
+      {
+        "$type": "SampleGame.SerializedData.SerializedTeam, Assembly-CSharp",
+        "ClassName": "SerializedTeam",
+        "Type": 0
+      }
+    ]
+  },
+  "3": {
+    "$type": "System.Collections.Generic.List`1[[SampleGame.SerializedData.SerializedComponentData, Assembly-CSharp]], mscorlib",
+    "$values": [
+      {
+        "$type": "SampleGame.SerializedData.SerializedCountDown, Assembly-CSharp",
+        "Current": 5.0,
+        "ClassName": "SerializedCountDown"
+      },
+      {
+        "$type": "SampleGame.SerializedData.SerializedTeam, Assembly-CSharp",
+        "ClassName": "SerializedTeam",
+        "Type": 0
+      }
+    ]
+  },
+  "4": {
+    "$type": "System.Collections.Generic.List`1[[SampleGame.SerializedData.SerializedComponentData, Assembly-CSharp]], mscorlib",
+    "$values": [
+      {
+        "$type": "SampleGame.SerializedData.SerializedRecourseBag, Assembly-CSharp",
+        "Type": 0,
+        "Current": 453,
+        "ClassName": "SerializedRecourseBag"
+      },
+      {
+        "$type": "SampleGame.SerializedData.SerializedTeam, Assembly-CSharp",
+        "ClassName": "SerializedTeam",
+        "Type": 0
+      }
+    ]
+  },
+  "5": {
+    "$type": "System.Collections.Generic.List`1[[SampleGame.SerializedData.SerializedComponentData, Assembly-CSharp]], mscorlib",
+    "$values": [
+      {
+        "$type": "SampleGame.SerializedData.SerializedHealth, Assembly-CSharp",
+        "ClassName": "SerializedHealth",
+        "CurrentHealth": 6
+      },
+      {
+        "$type": "SampleGame.SerializedData.SerializedRecourseBag, Assembly-CSharp",
+        "Type": 0,
+        "Current": 5,
+        "ClassName": "SerializedRecourseBag"
+      },
+      {
+        "$type": "SampleGame.SerializedData.SerializedDestinationPoint, Assembly-CSharp",
+        "Value": {
+          "$type": "SampleGame.Common.SerializedVector3, Assembly-CSharp",
+          "x": 20.0,
+          "y": 0.0,
+          "z": 20.0
+        },
+        "ClassName": "SerializedDestinationPoint"
+      },
+      {
+        "$type": "SampleGame.SerializedData.SerializedTeam, Assembly-CSharp",
+        "ClassName": "SerializedTeam",
+        "Type": 1
+      }
+    ]
+  },
+  "6": {
+    "$type": "System.Collections.Generic.List`1[[SampleGame.SerializedData.SerializedComponentData, Assembly-CSharp]], mscorlib",
+    "$values": [
+      {
+        "$type": "SampleGame.SerializedData.SerializedHealth, Assembly-CSharp",
+        "ClassName": "SerializedHealth",
+        "CurrentHealth": 8
+      },
+      {
+        "$type": "SampleGame.SerializedData.SerializedRecourseBag, Assembly-CSharp",
+        "Type": 0,
+        "Current": 3,
+        "ClassName": "SerializedRecourseBag"
+      },
+      {
+        "$type": "SampleGame.SerializedData.SerializedDestinationPoint, Assembly-CSharp",
+        "Value": {
+          "$type": "SampleGame.Common.SerializedVector3, Assembly-CSharp",
+          "x": 10.0,
+          "y": 0.0,
+          "z": 5.0
+        },
+        "ClassName": "SerializedDestinationPoint"
+      },
+      {
+        "$type": "SampleGame.SerializedData.SerializedTeam, Assembly-CSharp",
+        "ClassName": "SerializedTeam",
+        "Type": 1
+      }
+    ]
+  },
+  "7": {
+    "$type": "System.Collections.Generic.List`1[[SampleGame.SerializedData.SerializedComponentData, Assembly-CSharp]], mscorlib",
+    "$values": [
+      {
+        "$type": "SampleGame.SerializedData.SerializedHealth, Assembly-CSharp",
+        "ClassName": "SerializedHealth",
+        "CurrentHealth": 50
+      },
+      {
+        "$type": "SampleGame.SerializedData.SerializedTargetObject, Assembly-CSharp",
+        "ClassName": "SerializedTargetObject",
+        "EntityID": 20
+      }
+    ]
+  },
+  "8": {
+    "$type": "System.Collections.Generic.List`1[[SampleGame.SerializedData.SerializedComponentData, Assembly-CSharp]], mscorlib",
+    "$values": [
+      {
+        "$type": "SampleGame.SerializedData.SerializedHealth, Assembly-CSharp",
+        "ClassName": "SerializedHealth",
+        "CurrentHealth": 100
+      },
+      {
+        "$type": "SampleGame.SerializedData.SerializedTargetObject, Assembly-CSharp",
+        "ClassName": "SerializedTargetObject",
+        "EntityID": -1
+      },
+      {
+        "$type": "SampleGame.SerializedData.SerializedTeam, Assembly-CSharp",
+        "ClassName": "SerializedTeam",
+        "Type": 1
+      }
+    ]
+  },
+  "9": {
+    "$type": "System.Collections.Generic.List`1[[SampleGame.SerializedData.SerializedComponentData, Assembly-CSharp]], mscorlib",
+    "$values": [
+      {
+        "$type": "SampleGame.SerializedData.SerializedHealth, Assembly-CSharp",
+        "ClassName": "SerializedHealth",
+        "CurrentHealth": 100
+      },
+      {
+        "$type": "SampleGame.SerializedData.SerializedTargetObject, Assembly-CSharp",
+        "ClassName": "SerializedTargetObject",
+        "EntityID": 20
+      },
+      {
+        "$type": "SampleGame.SerializedData.SerializedTeam, Assembly-CSharp",
+        "ClassName": "SerializedTeam",
+        "Type": 1
+      }
+    ]
+  },
+  "10": {
+    "$type": "System.Collections.Generic.List`1[[SampleGame.SerializedData.SerializedComponentData, Assembly-CSharp]], mscorlib",
+    "$values": [
+      {
+        "$type": "SampleGame.SerializedData.SerializedHealth, Assembly-CSharp",
+        "ClassName": "SerializedHealth",
+        "CurrentHealth": 1000
+      },
+      {
+        "$type": "SampleGame.SerializedData.SerializedRecourseBag, Assembly-CSharp",
+        "Type": 0,
+        "Current": 555,
+        "ClassName": "SerializedRecourseBag"
+      },
+      {
+        "$type": "SampleGame.SerializedData.SerializableProductionOrder, Assembly-CSharp",
+        "Queue": {
+          "$type": "System.Collections.Generic.List`1[[Modules.Entities.EntityConfig, Modules.Entities]], mscorlib",
+          "$values": [
+            {
+              "$type": "Modules.Entities.EntityConfig, Modules.Entities",
+              "Name": "Worker",
+              "Size": 0.5,
+              "Type": 1,
+              "name": "Worker",
+              "hideFlags": 0
+            },
+            {
+              "$type": "Modules.Entities.EntityConfig, Modules.Entities",
+              "Name": "Worker",
+              "Size": 0.5,
+              "Type": 1,
+              "name": "Worker",
+              "hideFlags": 0
+            },
+            {
+              "$type": "Modules.Entities.EntityConfig, Modules.Entities",
+              "Name": "Worker",
+              "Size": 0.5,
+              "Type": 1,
+              "name": "Worker",
+              "hideFlags": 0
+            }
+          ]
+        },
+        "ClassName": "SerializableProductionOrder"
+      },
+      {
+        "$type": "SampleGame.SerializedData.SerializedTeam, Assembly-CSharp",
+        "ClassName": "SerializedTeam",
+        "Type": 1
+      }
+    ]
+  },
+  "11": {
+    "$type": "System.Collections.Generic.List`1[[SampleGame.SerializedData.SerializedComponentData, Assembly-CSharp]], mscorlib",
+    "$values": [
+      {
+        "$type": "SampleGame.SerializedData.SerializedRecourseBag, Assembly-CSharp",
+        "Type": 0,
+        "Current": 33,
+        "ClassName": "SerializedRecourseBag"
+      },
+      {
+        "$type": "SampleGame.SerializedData.SerializedTeam, Assembly-CSharp",
+        "ClassName": "SerializedTeam",
+        "Type": 0
+      }
+    ]
+  },
+  "12": {
+    "$type": "System.Collections.Generic.List`1[[SampleGame.SerializedData.SerializedComponentData, Assembly-CSharp]], mscorlib",
+    "$values": [
+      {
+        "$type": "SampleGame.SerializedData.SerializedHealth, Assembly-CSharp",
+        "ClassName": "SerializedHealth",
+        "CurrentHealth": 50
+      },
+      {
+        "$type": "SampleGame.SerializedData.SerializedRecourseBag, Assembly-CSharp",
+        "Type": 1,
+        "Current": 515,
+        "ClassName": "SerializedRecourseBag"
+      },
+      {
+        "$type": "SampleGame.SerializedData.SerializedTeam, Assembly-CSharp",
+        "ClassName": "SerializedTeam",
+        "Type": 1
+      }
+    ]
+  },
+  "13": {
+    "$type": "System.Collections.Generic.List`1[[SampleGame.SerializedData.SerializedComponentData, Assembly-CSharp]], mscorlib",
+    "$values": [
+      {
+        "$type": "SampleGame.SerializedData.SerializedRecourseBag, Assembly-CSharp",
+        "Type": 0,
+        "Current": 999,
+        "ClassName": "SerializedRecourseBag"
+      },
+      {
+        "$type": "SampleGame.SerializedData.SerializedTeam, Assembly-CSharp",
+        "ClassName": "SerializedTeam",
+        "Type": 0
+      }
+    ]
+  },
+  "14": {
+    "$type": "System.Collections.Generic.List`1[[SampleGame.SerializedData.SerializedComponentData, Assembly-CSharp]], mscorlib",
+    "$values": [
+      {
+        "$type": "SampleGame.SerializedData.SerializedHealth, Assembly-CSharp",
+        "ClassName": "SerializedHealth",
+        "CurrentHealth": 199
+      },
+      {
+        "$type": "SampleGame.SerializedData.SerializableProductionOrder, Assembly-CSharp",
+        "Queue": {
+          "$type": "System.Collections.Generic.List`1[[Modules.Entities.EntityConfig, Modules.Entities]], mscorlib",
+          "$values": [
+            {
+              "$type": "Modules.Entities.EntityConfig, Modules.Entities",
+              "Name": "Warrior",
+              "Size": 1.0,
+              "Type": 1,
+              "name": "Warrior",
+              "hideFlags": 0
+            },
+            {
+              "$type": "Modules.Entities.EntityConfig, Modules.Entities",
+              "Name": "Tank",
+              "Size": 2.0,
+              "Type": 1,
+              "name": "Tank",
+              "hideFlags": 0
+            },
+            {
+              "$type": "Modules.Entities.EntityConfig, Modules.Entities",
+              "Name": "Ship",
+              "Size": 2.0,
+              "Type": 1,
+              "name": "Ship",
+              "hideFlags": 0
+            }
+          ]
+        },
+        "ClassName": "SerializableProductionOrder"
+      },
+      {
+        "$type": "SampleGame.SerializedData.SerializedCountDown, Assembly-CSharp",
+        "Current": 33.0,
+        "ClassName": "SerializedCountDown"
+      },
+      {
+        "$type": "SampleGame.SerializedData.SerializedTeam, Assembly-CSharp",
+        "ClassName": "SerializedTeam",
+        "Type": 1
+      },
+      {
+        "$type": "SampleGame.SerializedData.SerializedDestinationPoint, Assembly-CSharp",
+        "Value": {
+          "$type": "SampleGame.Common.SerializedVector3, Assembly-CSharp",
+          "x": 5.0,
+          "y": 0.0,
+          "z": 5.0
+        },
+        "ClassName": "SerializedDestinationPoint"
+      }
+    ]
+  },
+  "15": {
+    "$type": "System.Collections.Generic.List`1[[SampleGame.SerializedData.SerializedComponentData, Assembly-CSharp]], mscorlib",
+    "$values": [
+      {
+        "$type": "SampleGame.SerializedData.SerializedHealth, Assembly-CSharp",
+        "ClassName": "SerializedHealth",
+        "CurrentHealth": 44
+      },
+      {
+        "$type": "SampleGame.SerializedData.SerializedTeam, Assembly-CSharp",
+        "ClassName": "SerializedTeam",
+        "Type": 1
+      },
+      {
+        "$type": "SampleGame.SerializedData.SerializedTargetObject, Assembly-CSharp",
+        "ClassName": "SerializedTargetObject",
+        "EntityID": -1
+      }
+    ]
+  },
+  "16": {
+    "$type": "System.Collections.Generic.List`1[[SampleGame.SerializedData.SerializedComponentData, Assembly-CSharp]], mscorlib",
+    "$values": [
+      {
+        "$type": "SampleGame.SerializedData.SerializedHealth, Assembly-CSharp",
+        "ClassName": "SerializedHealth",
+        "CurrentHealth": 100
+      },
+      {
+        "$type": "SampleGame.SerializedData.SerializedTargetObject, Assembly-CSharp",
+        "ClassName": "SerializedTargetObject",
+        "EntityID": 20
+      },
+      {
+        "$type": "SampleGame.SerializedData.SerializedTeam, Assembly-CSharp",
+        "ClassName": "SerializedTeam",
+        "Type": 1
+      }
+    ]
+  },
+  "17": {
+    "$type": "System.Collections.Generic.List`1[[SampleGame.SerializedData.SerializedComponentData, Assembly-CSharp]], mscorlib",
+    "$values": [
+      {
+        "$type": "SampleGame.SerializedData.SerializedHealth, Assembly-CSharp",
+        "ClassName": "SerializedHealth",
+        "CurrentHealth": 14
+      },
+      {
+        "$type": "SampleGame.SerializedData.SerializedTeam, Assembly-CSharp",
+        "ClassName": "SerializedTeam",
+        "Type": 1
+      },
+      {
+        "$type": "SampleGame.SerializedData.SerializedDestinationPoint, Assembly-CSharp",
+        "Value": {
+          "$type": "SampleGame.Common.SerializedVector3, Assembly-CSharp",
+          "x": 4.0,
+          "y": 0.0,
+          "z": 4.0
+        },
+        "ClassName": "SerializedDestinationPoint"
+      },
+      {
+        "$type": "SampleGame.SerializedData.SerializedTargetObject, Assembly-CSharp",
+        "ClassName": "SerializedTargetObject",
+        "EntityID": -1
+      }
+    ]
+  },
+  "18": {
+    "$type": "System.Collections.Generic.List`1[[SampleGame.SerializedData.SerializedComponentData, Assembly-CSharp]], mscorlib",
+    "$values": [
+      {
+        "$type": "SampleGame.SerializedData.SerializedRecourseBag, Assembly-CSharp",
+        "Type": 0,
+        "Current": 223,
+        "ClassName": "SerializedRecourseBag"
+      },
+      {
+        "$type": "SampleGame.SerializedData.SerializedTeam, Assembly-CSharp",
+        "ClassName": "SerializedTeam",
+        "Type": 0
+      }
+    ]
+  },
+  "19": {
+    "$type": "System.Collections.Generic.List`1[[SampleGame.SerializedData.SerializedComponentData, Assembly-CSharp]], mscorlib",
+    "$values": [
+      {
+        "$type": "SampleGame.SerializedData.SerializedHealth, Assembly-CSharp",
+        "ClassName": "SerializedHealth",
+        "CurrentHealth": 100
+      },
+      {
+        "$type": "SampleGame.SerializedData.SerializedDestinationPoint, Assembly-CSharp",
+        "Value": {
+          "$type": "SampleGame.Common.SerializedVector3, Assembly-CSharp",
+          "x": 7.0,
+          "y": 0.0,
+          "z": 7.0
+        },
+        "ClassName": "SerializedDestinationPoint"
+      },
+      {
+        "$type": "SampleGame.SerializedData.SerializedTargetObject, Assembly-CSharp",
+        "ClassName": "SerializedTargetObject",
+        "EntityID": 20
+      },
+      {
+        "$type": "SampleGame.SerializedData.SerializedTeam, Assembly-CSharp",
+        "ClassName": "SerializedTeam",
+        "Type": 1
+      },
+      {
+        "$type": "SampleGame.SerializedData.SerializedCountDown, Assembly-CSharp",
+        "Current": 4.0,
+        "ClassName": "SerializedCountDown"
+      }
+    ]
+  },
+  "20": {
+    "$type": "System.Collections.Generic.List`1[[SampleGame.SerializedData.SerializedComponentData, Assembly-CSharp]], mscorlib",
+    "$values": [
+      {
+        "$type": "SampleGame.SerializedData.SerializedHealth, Assembly-CSharp",
+        "ClassName": "SerializedHealth",
+        "CurrentHealth": 683
+      },
+      {
+        "$type": "SampleGame.SerializedData.SerializedCountDown, Assembly-CSharp",
+        "Current": 4.0,
+        "ClassName": "SerializedCountDown"
+      },
+      {
+        "$type": "SampleGame.SerializedData.SerializedDestinationPoint, Assembly-CSharp",
+        "Value": {
+          "$type": "SampleGame.Common.SerializedVector3, Assembly-CSharp",
+          "x": 1.0,
+          "y": 0.0,
+          "z": 1.0
+        },
+        "ClassName": "SerializedDestinationPoint"
+      },
+      {
+        "$type": "SampleGame.SerializedData.SerializedTeam, Assembly-CSharp",
+        "ClassName": "SerializedTeam",
+        "Type": 2
+      }
+    ]
+  }
+}
