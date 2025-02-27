@@ -1,29 +1,29 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Game.Scripts.SaveSystem.Core;
 using Modules.Entities;
 using SampleGame.Gameplay;
-using UnityEngine;
-using Zenject;
 
 namespace Game.Scripts.SaveSystem.Presenters
 {
-    public class SaveSystemMediator : MonoBehaviour
+    public class SaveSystemMediator : IDisposable
     {
-        private Dictionary<Entity, List<ISerializedComponent>> _savedComponents = new Dictionary<Entity, List<ISerializedComponent>>();
+        private readonly Dictionary<Entity, List<ISerializedComponent>> _savedComponents = new();
         
         private EntityWorld _entityWorld;
         private ISaveSystem _saveSystem;
 
-        [Inject]
-        public void Construct(EntityWorld entityWorld, ISaveSystem saveSystem)
+        public SaveSystemMediator(EntityWorld entityWorld, ISaveSystem saveSystem)
         {
             _entityWorld = entityWorld;
             _saveSystem = saveSystem;
+            
+            _saveSystem.OnDataNeeded += OnDataNeeded;
         }
 
-        private void Start()
+        private void OnDataNeeded()
         {
             _saveSystem.SetSaveData(GetSavedComponents());
         }
@@ -31,6 +31,7 @@ namespace Game.Scripts.SaveSystem.Presenters
         private Dictionary<Entity, List<ISerializedComponent>> GetSavedComponents()
         {
             var allEntities = _entityWorld.GetAll();
+            _savedComponents.Clear();
 
             foreach (var entity in allEntities)
             {
@@ -40,15 +41,22 @@ namespace Game.Scripts.SaveSystem.Presenters
             return _savedComponents;
         }
 
-        public bool Save()
+        public async Task<bool> Save()
         {
-            return _saveSystem.Save();
+            _saveSystem.SetSaveData(GetSavedComponents());
+            return await _saveSystem.Save();
         }
         
-        public bool Load()
+        public async Task<bool> Load(string version)
         {
-            return _saveSystem.Load();
+            _saveSystem.SetSaveData(GetSavedComponents());
+            var success = await _saveSystem.Load(version, _entityWorld);
+            return success;
         }
-        
+
+        public void Dispose()
+        {
+            _saveSystem.OnDataNeeded -= OnDataNeeded;
+        }
     }
 }

@@ -1,3 +1,4 @@
+using Modules.Entities;
 using SampleGame.Common;
 using SampleGame.SerializedData;
 using UnityEngine;
@@ -13,7 +14,7 @@ namespace SampleGame.Gameplay
 
         public SerializedComponentData Serialize() => new SerializedDestinationPoint() { ClassName = "SerializedDestinationPoint", Value = new SerializedVector3(Value)};
         
-        public void Deserialize(SerializedComponentData serializedComponentData)
+        public void Deserialize(SerializedComponentData serializedComponentData, EntityWorld entityWorld)
         {
             if (serializedComponentData is SerializedDestinationPoint serData) 
                 Value = serData.Value;

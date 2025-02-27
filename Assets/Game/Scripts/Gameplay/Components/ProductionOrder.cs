@@ -20,7 +20,7 @@ namespace SampleGame.Gameplay
         }
 
         public SerializedComponentData Serialize() => new SerializableProductionOrder() {ClassName = "SerializableProductionOrder", Queue = _queue};
-        public void Deserialize(SerializedComponentData serializedComponentData)
+        public void Deserialize(SerializedComponentData serializedComponentData, EntityWorld entityWorld)
         {
             if (serializedComponentData is SerializableProductionOrder serData) 
                 _queue = serData.Queue;

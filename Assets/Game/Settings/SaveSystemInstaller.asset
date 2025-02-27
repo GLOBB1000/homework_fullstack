@@ -12,4 +12,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fcf6efcdcc645679d17bccfe48da54d, type: 3}
   m_Name: SaveSystemInstaller
   m_EditorClassIdentifier: 
-  _saveSystemDirectory: Assets/StreamingAssets/save.json

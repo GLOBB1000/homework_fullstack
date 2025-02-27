@@ -1,6 +1,7 @@
 using System;
 using Game.Scripts.SaveSystem.Core;
 using Game.Scripts.SaveSystem.Presenters;
+using UnityEngine;
 
 namespace Game.Gameplay
 {
@@ -15,13 +16,13 @@ namespace Game.Gameplay
         public async void Save(Action<bool, int> callback)
         {
             //TODO:
-            callback.Invoke(_saveSystemMediator.Save(), -1);
+            callback.Invoke(await _saveSystemMediator.Save(), PlayerPrefs.GetInt("SaveVersion"));
         }
 
         public async void Load(string versionText, Action<bool, int> callback)
         {
             //TODO:
-            callback.Invoke(_saveSystemMediator.Load(), -1);
+            callback.Invoke(await _saveSystemMediator.Load(versionText), Convert.ToInt32(versionText));
         }
     }
 }

@@ -1,3 +1,4 @@
+using Modules.Entities;
 using UnityEngine;
 using Newtonsoft.Json;
 using SampleGame.Common;
@@ -18,7 +19,7 @@ namespace SampleGame.Gameplay
 
         public SerializedComponentData Serialize() => new SerializedHealth { ClassName = "SerializedHealth", CurrentHealth = Current };
 
-        public void Deserialize(SerializedComponentData serializedComponentData)
+        public void Deserialize(SerializedComponentData serializedComponentData, EntityWorld entityWorld)
         {
             if (serializedComponentData is SerializedHealth serData) 
                 Current = serData.CurrentHealth;

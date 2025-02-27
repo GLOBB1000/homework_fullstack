@@ -1,3 +1,4 @@
+using Modules.Entities;
 using SampleGame.Common;
 using SampleGame.SerializedData;
 
@@ -7,6 +8,6 @@ namespace SampleGame.Gameplay
     {
         SerializedComponentData Serialize();
         
-        void Deserialize(SerializedComponentData serializedComponentData);
+        void Deserialize(SerializedComponentData serializedComponentData, EntityWorld entityWorld);
     }
 }

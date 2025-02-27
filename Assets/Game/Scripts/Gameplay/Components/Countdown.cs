@@ -1,3 +1,4 @@
+using Modules.Entities;
 using Newtonsoft.Json;
 using SampleGame.SerializedData;
 using UnityEngine;
@@ -17,7 +18,7 @@ namespace SampleGame.Gameplay
 
         public SerializedComponentData Serialize() => new SerializedCountDown {ClassName = "SerializedCountDown", Current = Current};
         
-        public void Deserialize(SerializedComponentData serializedComponentData)
+        public void Deserialize(SerializedComponentData serializedComponentData, EntityWorld entityWorld)
         {
             if (serializedComponentData is SerializedCountDown serData) 
                 Current = serData.Current;

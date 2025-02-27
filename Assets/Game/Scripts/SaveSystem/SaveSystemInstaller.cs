@@ -1,5 +1,4 @@
 using Game.Scripts.SaveSystem.Presenters;
-using SampleGame.Gameplay;
 using SampleGame.SerializedData;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -13,12 +12,16 @@ namespace Game.Scripts.SaveSystem
     )]
     public class SaveSystemInstaller : ScriptableObjectInstaller
     {
-        [SerializeField, FilePath] private string _saveSystemDirectory;
         public override void InstallBindings()
         {
-            //Container.Bind<ISerializedComponent>().FromComponentsInHierarchy().AsCached();
-            Container.BindInterfacesAndSelfTo<Core.SaveSystem>().AsSingle().WithArguments(_saveSystemDirectory);
-            Container.Bind<SaveSystemMediator>().FromComponentInHierarchy().AsSingle();
+            Container.BindInterfacesAndSelfTo<Core.SaveSystem>().AsSingle();
+            Container.BindInterfacesAndSelfTo<SaveSystemMediator>().AsSingle().NonLazy();
+        }
+
+        [Button]
+        private void ClearPrefs()
+        {
+            PlayerPrefs.DeleteAll();
         }
     }
 }

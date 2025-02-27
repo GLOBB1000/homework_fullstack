@@ -1,3 +1,4 @@
+using Modules.Entities;
 using Newtonsoft.Json;
 using SampleGame.Common;
 using SampleGame.SerializedData;
@@ -13,7 +14,7 @@ namespace SampleGame.Gameplay
         public TeamType Type { get; set; }
 
         public SerializedComponentData Serialize() => new SerializedTeam { ClassName = "SerializedTeam", Type = Type };
-        public void Deserialize(SerializedComponentData serializedComponentData)
+        public void Deserialize(SerializedComponentData serializedComponentData, EntityWorld entityWorld)
         {
             if (serializedComponentData is SerializedTeam serData)
                 Type = serData.Type;

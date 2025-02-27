@@ -1,5 +1,6 @@
 using System.Text;
 using Game.Scripts.SaveSystem.Core;
+using Modules.Entities;
 using SampleGame.Common;
 using SampleGame.SerializedData;
 using UnityEngine;
@@ -23,7 +24,7 @@ namespace SampleGame.Gameplay
 
         public SerializedComponentData Serialize() => new SerializedRecourseBag() {ClassName = "SerializedRecourseBag", Type = Type, Current = Current};
         
-        public void Deserialize(SerializedComponentData serializedComponentData)
+        public void Deserialize(SerializedComponentData serializedComponentData, EntityWorld entityWorld)
         {
             if (serializedComponentData is not SerializedRecourseBag serData) return;
             
